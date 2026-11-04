@@ -6,10 +6,28 @@ The game code comes from the [Wii port][wii] by MaikelChan.
 That port is based on the [decompilation][decomp] by k4zmu2a.
 It already reads the game data on a big-endian CPU.
 
-[wii]: https://github.com/MaikelChan/SpaceCadetPinball
-[decomp]: https://github.com/k4zmu2a/SpaceCadetPinball This project replaces the Wii layer with a PS3 layer: RSX video, a 48 kHz audio mixer, and DualShock 3 input.
+This project replaces the Wii layer with a PS3 layer: RSX video, a 48 kHz audio mixer, and DualShock 3 input.
 
 This repository holds no game data. You must use the files from your own copy of the game.
+
+[wii]: https://github.com/MaikelChan/SpaceCadetPinball
+[decomp]: https://github.com/k4zmu2a/SpaceCadetPinball
+
+## Install
+
+You need a PS3 with CFW or PS3HEN, and Windows on your PC. You also need the 3D Pinball files from Windows XP: `PINBALL.DAT` and the `SOUND*.WAV` files. On Windows XP they are in `C:\Program Files\Windows NT\Pinball`.
+
+1. Download `SpaceCadetPKG.zip` from the Releases page and unzip it.
+2. Copy `make_spacecadet_pkg.bat` and the `spacecadet_pkg_files` folder into your Pinball folder, next to `PINBALL.DAT`.
+3. Double-click `make_spacecadet_pkg.bat`. It makes `SpaceCadet.pkg` in the same folder.
+4. Copy `SpaceCadet.pkg` to a USB stick.
+5. On the PS3, install it with Package Manager, then Install Package Files.
+
+If `PINBALL.DAT` or the sound files are not in the folder, the `.bat` file stops and tells you what is missing.
+
+The package contains your game files. Do not share it.
+
+The Full Tilt! table also works. Use its `CADET` folder instead of the Pinball folder.
 
 ## Controls
 
@@ -26,17 +44,38 @@ To quit, press the PS button and select Quit Game.
 
 ## Build
 
-You need Docker and the `balatro-ps3dev:2` image. It is the ps3dev nightly with cgcomp's libCg (see `D:\Ps3 Port\docker\Dockerfile`).
+There are two ways to build. Both use the same pinned toolchain: the ps3dev nightly and NVIDIA's libCg for the shader compiler.
 
-```powershell
-pwsh -NoProfile -File tools/build.ps1
+Without Docker, on Linux x64 or WSL on Windows:
+
+```sh
+sh tools/install_toolchain.sh
+sh tools/make.sh pkg
 ```
 
-The bootable file is `build/spacecadet.elf`. To make an installable package, run `make pkg` in the same container. The package holds an empty `Data` folder.
+The first command installs the toolchain into `$HOME/ps3dev`. It needs no root access. To use another folder, give it as an argument. Then set `PS3DEV` to that folder for `tools/make.sh`.
+
+With Docker, on Windows:
+
+```powershell
+pwsh -NoProfile -File tools/build.ps1 -Pkg
+```
+
+The first run builds the toolchain image from `docker/Dockerfile`. This takes a few minutes.
+
+Both ways give `build/spacecadet.elf`, which RPCS3 boots, and `spacecadet.pkg`, which a PS3 installs. That package holds an empty `Data` folder. Copy the game files into `/dev_hdd0/game/PNBL00001/USRDIR/Data/` yourself, for example over FTP.
+
+To make the player download, run `make pkg`, then run `tools/release.sh` in plain Ubuntu:
+
+```powershell
+docker run --rm -v "${PWD}:/work" -w /work ubuntu:24.04 sh tools/release.sh
+```
+
+It gives `dist/SpaceCadetPKG.zip`. It builds `pkg.exe` for Windows from the PSL1GHT source.
 
 ## Game data
 
-Copy the files from your Windows XP Pinball folder into `/dev_hdd0/game/PNBL00001/USRDIR/Data/`. These are `PINBALL.DAT`, `pinball.exe`, and the `SOUND*.WAV` files. File names can be in any case.
+File names can be in any case.
 
 The game asks for six sound files that were never released: SOUND2, SOUND37, SOUND44, SOUND59, SOUND62 and SOUND111. Those events are silent, as in the original game.
 

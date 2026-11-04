@@ -1,7 +1,6 @@
 /*
  * RSX output for a software-rendered game: each frame the game's screen is copied into a
- * texture and drawn as textured quads. Display setup, flips and the command ring follow the
- * Balatro port's gfx_device.c, which is proven on RPCS3 and hardware.
+ * texture and drawn as textured quads.
  */
 #include <malloc.h>
 #include <stdio.h>

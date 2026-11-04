@@ -1,5 +1,5 @@
 /*
- * Software mixer, after the Balatro port's audio_mixer.c. The audio port takes only 48 kHz
+ * Software mixer. The audio port takes only 48 kHz
  * float blocks, and a missed block clicks, so one thread only copies finished blocks to the
  * port, and a second one mixes ahead of it.
  *
