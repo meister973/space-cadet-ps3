@@ -2,7 +2,12 @@
 
 A PS3 homebrew port of 3D Pinball for Windows: Space Cadet. It uses the PSL1GHT toolchain.
 
-The game code comes from MaikelChan's [Wii port](https://github.com/MaikelChan/SpaceCadetPinball). That port is based on k4zmu2a's [decompilation](https://github.com/k4zmu2a/SpaceCadetPinball). It already reads the game data on a big-endian CPU. This project replaces the Wii layer with a PS3 layer: RSX video, a 48 kHz audio mixer, and DualShock 3 input.
+The game code comes from the [Wii port][wii] by MaikelChan.
+That port is based on the [decompilation][decomp] by k4zmu2a.
+It already reads the game data on a big-endian CPU.
+
+[wii]: https://github.com/MaikelChan/SpaceCadetPinball
+[decomp]: https://github.com/k4zmu2a/SpaceCadetPinball This project replaces the Wii layer with a PS3 layer: RSX video, a 48 kHz audio mixer, and DualShock 3 input.
 
 This repository holds no game data. You must use the files from your own copy of the game.
 
