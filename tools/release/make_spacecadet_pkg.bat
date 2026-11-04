@@ -20,11 +20,12 @@ if not exist "%HERE%pinball.dat" if not exist "%HERE%cadet.dat" (
     exit /b 2
 )
 rem 3D Pinball keeps its sounds next to PINBALL.DAT, Full Tilt! in a SOUND sub-folder.
-if not exist "%HERE%sound*.wav" if not exist "%HERE%SOUND\*.wav" (
-    echo The sound files are not in this folder.
-    echo Copy the SOUND*.WAV files from your Pinball folder here, next to PINBALL.DAT.
-    pause
-    exit /b 5
+set "NO_SOUND="
+if not exist "%HERE%sound*.wav" if not exist "%HERE%SOUND\*.wav" set "NO_SOUND=1"
+if defined NO_SOUND (
+    echo WARNING: the sound files are not in this folder, so the game will have no sound.
+    echo To add sound, copy the SOUND*.WAV files here, next to PINBALL.DAT, and run this again.
+    echo.
 )
 
 set "WORK=%TEMP%\spacecadet_pkg_%RANDOM%%RANDOM%"
@@ -63,4 +64,5 @@ rmdir /s /q "%WORK%"
 echo.
 echo Done: %HERE%SpaceCadet.pkg
 echo Install it on your PS3 with Package Manager. It contains your game files: do not share it.
+if defined NO_SOUND echo WARNING: this package has no sound files, so the game is silent.
 pause

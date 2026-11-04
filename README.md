@@ -23,7 +23,7 @@ You need a PS3 with CFW or PS3HEN, and Windows on your PC. You also need the 3D 
 4. Copy `SpaceCadet.pkg` to a USB stick.
 5. On the PS3, install it with Package Manager, then Install Package Files.
 
-If `PINBALL.DAT` or the sound files are not in the folder, the `.bat` file stops and tells you what is missing.
+If `PINBALL.DAT` is not in the folder, the `.bat` file stops. If the sound files are not in the folder, it warns you and makes the package anyway. The game then has no sound.
 
 The package contains your game files. Do not share it.
 
