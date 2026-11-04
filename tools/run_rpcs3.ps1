@@ -26,7 +26,8 @@ param(
 if ($Screenshot) { $Visible = $true }
 
 $root = Split-Path -Parent $PSScriptRoot
-$rpcs3Dir = 'C:\Users\claud\Desktop\rpcs3'
+# Set RPCS3_DIR when RPCS3 is not in a folder named rpcs3 on your desktop.
+$rpcs3Dir = if ($env:RPCS3_DIR) { $env:RPCS3_DIR } else { Join-Path $env:USERPROFILE 'Desktop\rpcs3' }
 $elf = Join-Path $root 'build\spacecadet.elf'
 $ttyLog = Join-Path $rpcs3Dir 'log\TTY.log'
 $mainLog = Join-Path $rpcs3Dir 'log\RPCS3.log'

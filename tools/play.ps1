@@ -1,7 +1,8 @@
 # Starts the game in RPCS3 with an Xbox pad as Player 1, for playing it by hand.
 # The profile applies to this launch only: RPCS3's own input settings stay as they are.
 $root = Split-Path -Parent $PSScriptRoot
-$rpcs3Dir = 'C:\Users\claud\Desktop\rpcs3'
+# Set RPCS3_DIR when RPCS3 is not in a folder named rpcs3 on your desktop.
+$rpcs3Dir = if ($env:RPCS3_DIR) { $env:RPCS3_DIR } else { Join-Path $env:USERPROFILE 'Desktop\rpcs3' }
 $elf = Join-Path $root 'build\spacecadet.elf'
 $data = Join-Path $rpcs3Dir 'dev_hdd0\game\PNBL00001\USRDIR\Data'
 
