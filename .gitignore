@@ -1,0 +1,12 @@
+build/
+runs/
+ref-*/
+*.elf
+*.self
+*.pkg
+tests/test_*
+!tests/test_*.c
+
+upstream/
+.remember/
+

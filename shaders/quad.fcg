@@ -1,0 +1,7 @@
+// One texture read and no temporaries: cgcomp's R0 and output-register clash cannot occur.
+void main(float2 texcoord : TEXCOORD0,
+          uniform sampler2D screen,
+          out float4 color : COLOR)
+{
+    color = tex2D(screen, texcoord);
+}

@@ -1,0 +1,3 @@
+Copy every file from your Windows XP 3D Pinball folder (PINBALL.DAT, the .WAV files, and the rest) into this folder.
+Optional music: convert PINBALL.MID to PINBALL.ogg and put it here too.
+
